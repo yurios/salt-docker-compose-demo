@@ -4,6 +4,9 @@ services:
     image: salt-master
     volumes:
       - type: bind
+        source: ./salt/
+        target: /srv/salt/
+      - type: bind
         source: ./configs/master/key.pem
         target: /etc/salt/pki/master/master.pem
       - type: bind
