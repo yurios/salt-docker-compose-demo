@@ -1,0 +1,41 @@
+version: '3.5'
+services:
+  master-container:
+    image: salt-master
+    volumes:
+      - type: bind
+        source: ./configs/master/key.pem
+        target: /etc/salt/pki/master/master.pem
+      - type: bind
+        source: ./configs/master/key.pub
+        target: /etc/salt/pki/master/master.pub
+      - type: bind
+        source: ./configs/minion-1/key.pub
+        target: /etc/salt/pki/master/minions/minion-1-container
+      - type: bind
+        source: ./configs/minion-2/key.pub
+        target: /etc/salt/pki/master/minions/minion-2-container
+  minion-1-container:
+    image: salt-minion
+    volumes:
+      - type: bind
+        source: ./configs/minion-1/minion
+        target: /etc/salt/minion
+      - type: bind
+        source: ./configs/minion-1/key.pem
+        target: /etc/salt/pki/minion/minion.pem
+      - type: bind
+        source: ./configs/minion-1/key.pub
+        target: /etc/salt/pki/minion/minion.pub
+  minion-2-container:
+    image: salt-minion
+    volumes:
+      - type: bind
+        source: ./configs/minion-2/minion
+        target: /etc/salt/minion
+      - type: bind
+        source: ./configs/minion-2/key.pem
+        target: /etc/salt/pki/minion/minion.pem
+      - type: bind
+        source: ./configs/minion-2/key.pub
+        target: /etc/salt/pki/minion/minion.pub

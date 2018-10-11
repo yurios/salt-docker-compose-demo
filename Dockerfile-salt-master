@@ -1,0 +1,9 @@
+FROM ubuntu:18.04
+
+RUN apt-get update \
+    && apt-get -y install curl \
+    && curl -L https://bootstrap.saltstack.com -o install_salt.sh \
+    && sh install_salt.sh -M \
+    && rm -rf /var/lib/apt/lists/*
+
+ENTRYPOINT ["/usr/bin/salt-master"]

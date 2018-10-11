@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+OPTIONAL_BUILD_PARAMS=$@
+
+echo "OPTIONAL_BUILD_PARAMS: ${OPTIONAL_BUILD_PARAMS}"
+
+build_docker_image () {
+    docker_file=$1
+    tag=$2
+    docker build -f ${docker_file} -t ${tag} ${OPTIONAL_BUILD_PARAMS} .
+}
+
+build_docker_image "Dockerfile-salt-master" "salt-master"
+build_docker_image "Dockerfile-salt-minion" "salt-minion"
